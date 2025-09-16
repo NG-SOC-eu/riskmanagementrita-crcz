@@ -1,0 +1,66 @@
+---
+- name: Configure router
+  hosts: router
+  become: true
+  tasks:
+    - name: Enable IP forwarding
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        state: present
+    - name: Set up NAT for ics-net
+      ansible.builtin.command: >
+        iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -o eth2 -j MASQUERADE
+      changed_when: false
+
+- name: Configure substation RTU
+  hosts: substation-rtu
+  become: true
+  tasks:
+    - name: Install netcat for ICS port simulation
+      ansible.builtin.apt:
+        update_cache: true
+        name: netcat
+        state: present
+    - name: Deploy netcat listener service
+      ansible.builtin.template:
+        src: templates/nc-listener@.service.j2
+        dest: /etc/systemd/system/nc-listener@.service
+        mode: '0644'
+    - name: Reload systemd to pick up nc listener unit
+      ansible.builtin.systemd:
+        daemon_reload: true
+    - name: Ensure Modbus service listening on port 502
+      ansible.builtin.service:
+        name: nc-listener@502
+        state: started
+        enabled: true
+    - name: Ensure S7comm service listening on port 102
+      ansible.builtin.service:
+        name: nc-listener@102
+        state: started
+        enabled: true
+
+- name: Install and configure RITA
+  hosts: rita-server
+  become: true
+  tasks:
+    - name: Install RITA
+      ansible.builtin.apt:
+        update_cache: true
+        name: rita
+        state: present
+    - name: Ensure RITA service is running
+      ansible.builtin.service:
+        name: rita
+        state: started
+        enabled: true
+
+- name: Remove UFW from all hosts
+  hosts: all
+  become: true
+  tasks:
+    - name: Remove UFW firewall
+      ansible.builtin.apt:
+        name: ufw
+        state: absent
