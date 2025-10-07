@@ -3,6 +3,12 @@
   hosts: router
   become: true
   tasks:
+    - name: Install prerequisites
+      apt:
+        name:
+          - iptables-persistent
+        state: present
+        update_cache: yes
     - name: Enable IP forwarding
       ansible.posix.sysctl:
         name: net.ipv4.ip_forward
