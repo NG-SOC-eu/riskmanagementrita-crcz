@@ -15,7 +15,7 @@
       environment:
         DEBIAN_FRONTEND: noninteractive
     - name: Ensure NAT for bank-net is configured
-      ansible.posix.iptables:
+      ansible.builtin.iptables:
         table: nat
         chain: POSTROUTING
         source: 10.0.1.0/24
@@ -23,7 +23,7 @@
         jump: MASQUERADE
         state: present
     - name: Ensure NAT for ics-net is configured
-      ansible.posix.iptables:
+      ansible.builtin.iptables:
         table: nat
         chain: POSTROUTING
         source: 10.0.2.0/24
