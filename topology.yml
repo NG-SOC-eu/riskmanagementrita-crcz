@@ -31,11 +31,11 @@ hosts:
       image: debian-12-x86_64
       mgmt_user: debian
     flavor: standard.medium
-  - name: rita-server
+  - name: docker-server
     base_box:
-      image: debian-12-x86_64
-      mgmt_user: debian
-    flavor: standard.small
+      image: ubuntu-noble-x86_64
+      mgmt_user: ubuntu
+    flavor: standard.medium
 routers:
   - name: router
     base_box:
