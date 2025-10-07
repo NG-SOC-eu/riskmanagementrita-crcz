@@ -224,7 +224,9 @@
     - name: Show Docker Compose output
       ansible.builtin.debug:
         msg: |
-          MISP: {{ misp_output | default('No output captured') }}
+          Backend: {{ backend_compose_output | default('No output captured') }}
+          Frontend: {{ frontend_compose_output | default('No output captured') }}
+          Tools: {{ tools_compose_output | default('No output captured') }}
 
     - name: Unmount SMB share
       ansible.builtin.mount:
