@@ -255,7 +255,7 @@
       ansible.builtin.user:
         name: debian
         password: "{{ debian_user_password_hash }}"
-        update_password: on_create
+        update_password: always
         state: present
     - name: Give sudo privileges
       ansible.builtin.copy:
