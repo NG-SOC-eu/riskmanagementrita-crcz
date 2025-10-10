@@ -1,5 +1,5 @@
 name: ngsoc-lm2
-# RITA (rita-server) reachable at rita-server (d.60)
+# RITA (rita-server) reachable at rita-server (10.0.12.60)
 hosts:
   - name: bank-analyst
     base_box:
@@ -69,7 +69,7 @@ net_mappings:
   - host: substation-rtu
     network: ics-net
     ip: 10.0.13.30
-  - host: docker-server
+  - host: rita-server
     network: bank-net
     ip: 10.0.12.60
 router_mappings:
