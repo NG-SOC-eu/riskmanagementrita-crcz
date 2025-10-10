@@ -100,7 +100,7 @@
         enabled: true
 
 - name: Configure Ubuntu-Docker-Rita
-  hosts: docker-server
+  hosts: rita-server
   become: true
   tasks:
     - name: Set password on User ubuntu
