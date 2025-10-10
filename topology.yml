@@ -1,5 +1,5 @@
 name: ngsoc-lm2
-# RITA (docker-server) reachable at rita-server (10.0.1.40)
+# RITA (rita-server) reachable at rita-server (d.60)
 hosts:
   - name: bank-analyst
     base_box:
@@ -31,7 +31,7 @@ hosts:
       image: debian-12-x86_64
       mgmt_user: debian
     flavor: standard.medium
-  - name: docker-server
+  - name: rita-server
     base_box:
       image: ubuntu-noble-x86_64
       mgmt_user: ubuntu
@@ -47,36 +47,36 @@ wan:
   cidr: 100.100.100.0/24
 networks:
   - name: bank-net
-    cidr: 10.0.1.0/24
+    cidr: 10.0.12.0/24
   - name: ics-net
-    cidr: 10.0.2.0/24
+    cidr: 10.0.13.0/24
 net_mappings:
   - host: bank-analyst
     network: bank-net
-    ip: 10.0.1.10
+    ip: 10.0.12.10
   - host: bank-web
     network: bank-net
-    ip: 10.0.1.20
+    ip: 10.0.12.20
   - host: bank-db
     network: bank-net
-    ip: 10.0.1.30
+    ip: 10.0.12.30
   - host: corp-workstation
     network: ics-net
-    ip: 10.0.2.10
+    ip: 10.0.13.10
   - host: scada-server
     network: ics-net
-    ip: 10.0.2.20
+    ip: 10.0.13.20
   - host: substation-rtu
     network: ics-net
-    ip: 10.0.2.30
+    ip: 10.0.13.30
   - host: docker-server
     network: bank-net
-    ip: 10.0.1.40
+    ip: 10.0.12.60
 router_mappings:
   - router: router
     network: bank-net
-    ip: 10.0.1.1
+    ip: 10.0.12.1
   - router: router
     network: ics-net
-    ip: 10.0.2.1
+    ip: 10.0.13.1
 groups: []
