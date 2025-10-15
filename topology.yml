@@ -10,12 +10,12 @@ hosts:
     base_box:
       image: debian-12-x86_64
       mgmt_user: debian
-    flavor: standard.medium
+    flavor: standard.small
   - name: bank-db
     base_box:
       image: debian-12-x86_64
       mgmt_user: debian
-    flavor: standard.medium
+    flavor: standard.small
   - name: corp-workstation
     base_box:
       image: kali
@@ -25,17 +25,17 @@ hosts:
     base_box:
       image: debian-12-x86_64
       mgmt_user: debian
-    flavor: standard.medium
+    flavor: standard.small
   - name: substation-rtu
     base_box:
       image: debian-12-x86_64
       mgmt_user: debian
-    flavor: standard.medium
+    flavor: standard.small
   - name: rita-server
     base_box:
       image: ubuntu-noble-x86_64
       mgmt_user: ubuntu
-    flavor: standard.medium
+    flavor: standard.small
 routers:
   - name: router
     base_box:
