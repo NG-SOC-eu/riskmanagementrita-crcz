@@ -97,3 +97,10 @@
         content: "debian ALL=(ALL) /usr/bin/apt-get, /usr/bin/systemctl"
         mode: '0440'
         validate: 'visudo -cf %s'
+
+- name: set up command logging
+  hosts: all
+  become: yes
+  roles:
+    - role: sandbox-logging
+      slf_destination_port: '{% if hostvars["man"] is defined -%} 514 {%- else -%} 515 {%- endif %}'
